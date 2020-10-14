@@ -1,27 +1,61 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Vue from "vue";
+import { pages } from "./pages";
+import VueRouter from "vue-router";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
-    path: '/',
-    name: 'Home',
-    component: Home
+    path: pages.home.path,
+    name: pages.home.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Home.vue"),
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  }
-]
+    path: pages.collection.path,
+    name: pages.collection.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Collection.vue"),
+  },
+  {
+    path: pages.product.path,
+    name: pages.product.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/ProductPage.vue"),
+  },
+  {
+    path: pages.cart.path,
+    name: pages.cart.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Cart.vue"),
+  },
+  {
+    path: pages.checkout.path,
+    name: pages.checkout.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Checkout.vue"),
+  },
+  {
+    path: pages.thankyou.path,
+    name: pages.thankyou.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Thankyou.vue"),
+  },
+  {
+    path: pages.contacts.path,
+    name: pages.contacts.name,
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Contacts.vue"),
+  },
+  {
+    path: "*",
+    redirect: "/",
+  },
+];
 
 const router = new VueRouter({
-  routes
-})
+  mode: "history",
+  routes,
+});
 
-export default router
+export default router;
