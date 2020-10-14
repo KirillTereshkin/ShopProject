@@ -50,9 +50,13 @@
 
               <CollectionSortBySize :products="products" />
 
-              <CollectionSortByColor v-if="false"/>
+              <CollectionSortByColor v-if="false" />
 
-              <button class="btn btn-sm btn-primary" @click="resetFilters">
+              <button
+                class="btn btn-sm btn-primary"
+                :disabled="isResetValid"
+                @click="resetFilters"
+              >
                 Сбросить фильтры
               </button>
             </div>
@@ -91,7 +95,7 @@ export default {
         let isValid = !query.type || item.type === query.type;
         if (query.minPrice) isValid = isValid && item.price >= query.minPrice;
         if (query.maxPrice) isValid = isValid && item.price <= query.maxPrice;
-        if (query.size)
+        if (query.size && query.size.length)
           isValid =
             isValid && item.sizes.some((size) => query.size.includes(size));
         return isValid;
@@ -99,7 +103,7 @@ export default {
 
       return products;
     },
-    paginatedProducts(){
+    paginatedProducts() {
       const page = this.$route.query.page ? this.$route.query.page - 1 : 0;
 
       const products = this.filteredProducts.slice(
@@ -107,7 +111,10 @@ export default {
         (page + 1) * this.maxItemsOnPage
       );
       return products;
-    }
+    },
+    isResetValid() {
+      return !Object.keys(this.$route.query).length;
+    },
   },
   components: {
     Product,
@@ -122,7 +129,7 @@ export default {
   },
   methods: {
     resetFilters() {
-      this.$router.push({ query: {} });
+      this.$router.push({ query: {} }).catch((e) => {});
     },
   },
   mounted() {
@@ -131,6 +138,9 @@ export default {
 };
 </script>
 <style lang="scss">
+.products-wrap{
+  width: 100%;
+}
 .collection-active-link {
   &-exact {
     border-color: #207dff !important;

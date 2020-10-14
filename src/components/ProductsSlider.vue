@@ -13,6 +13,8 @@
               v-for="(product, index) in products"
               :key="index"
               class="product"
+              ref="carouselRef"
+              :style="maxHeight ? { height: maxHeight + 'px' } : {}"
             >
               <Product v-bind="product" />
             </div>
@@ -36,11 +38,17 @@ export default {
   },
   data: () => ({
     products: [],
+    maxHeight: null,
   }),
   components: { Product },
+  methods: {
+    setCarousel() {
+      setTimeout(carouselScript, 1);
+    },
+  },
   mounted() {
     this.products = this.$store.getters.getRandomProducts(6);
-    setTimeout(carouselScript, 1);
+    this.setCarousel();
   },
 };
 </script>

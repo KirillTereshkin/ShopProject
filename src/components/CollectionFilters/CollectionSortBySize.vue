@@ -36,18 +36,17 @@ export default {
   }),
   watch: {
     checkedSize(val) {
-      if (this.checkedSize.length)
-        this.$router
-          .push({
-            query: { ...this.$route.query, size: this.checkedSize },
-          })
-          .catch((e) => {});
+      this.$router
+        .push({
+          query: { ...this.$route.query, size: this.checkedSize, page: 1 },
+        })
+        .catch((e) => {});
     },
-    $route(val){
+    $route(val) {
       const { size } = this.$route.query;
       if (size) this.checkedSize = Array.isArray(size) ? [...size] : [size];
       else this.checkedSize = [];
-    }
+    },
   },
   methods: {
     getSubsectionNumbers() {},

@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     chooseCategory(type) {
-      this.$router.push({ query: { ...this.$route.query, type } });
+      this.$router.push({ query: { ...this.$route.query, type, page: 1 } });
     },
 
     getSubsectionNumber() {

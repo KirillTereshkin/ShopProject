@@ -48,6 +48,9 @@ export default {
 };
 </script>
 <style scoped>
+.item{
+  height: 100% !important;
+}
 .preview-image {
   background-size: cover;
 }

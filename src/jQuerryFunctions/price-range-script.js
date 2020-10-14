@@ -1,5 +1,5 @@
 export default function(context) {
-  const setFilterInput = (valMin, valMax) => `₽ ${valMin} - ₽ ${valMax}`;
+  const setFilterInput = (valMin, valMax) => `${valMin} ₽ - ${valMax} ₽`;
 
   const pricesFilter = context.pricesFilter();
 

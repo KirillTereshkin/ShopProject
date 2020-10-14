@@ -1,6 +1,6 @@
 <template>
   <div class="mb-4">
-    <h3 class="mb-3 h6 text-uppercase text-black d-block">Filter by Price</h3>
+    <h3 class="mb-3 h6 text-uppercase text-black d-block">Отфильтровать по цене</h3>
     <div id="slider-range" class="border-primary"></div>
     <input
       type="text"

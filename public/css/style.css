@@ -753,9 +753,9 @@ a:hover {
   left: 0;
   text-transform: uppercase;
   z-index: 2;
-  -webkit-transform: rotate(-90deg) translateX(-100%) translateY(-70%);
-  -ms-transform: rotate(-90deg) translateX(-100%) translateY(-70%);
-  transform: rotate(-90deg) translateX(-100%) translateY(-70%);
+  -webkit-transform: rotate(-90deg) translateX(-50%) translateY(-100%);
+  -ms-transform: rotate(-90deg) translateX(-50%) translateY(-100%);
+  transform: rotate(-90deg) translateX(-50%) translateY(-100%);
 }
 .products .item img,
 .product .item img {
@@ -776,13 +776,10 @@ a:hover {
 }
 .products .item .item-info,
 .product .item .item-info {
-  position: absolute;
+  
   bottom: 0;
   z-index: 2;
   width: 100%;
-  -webkit-transform: translateY(-50%);
-  -ms-transform: translateY(-50%);
-  transform: translateY(-50%);
 }
 .products .item .item-info h3,
 .product .item .item-info h3 {
