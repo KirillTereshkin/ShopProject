@@ -1,44 +1,6 @@
 <template>
   <main>
-    <div class="site-blocks-cover" data-aos="fade">
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-lg-5 text-center">
-            <div class="featured-hero-product w-100">
-              <h1 class="mb-2">Madewell</h1>
-              <h4>Summer Collection</h4>
-              <div class="price mt-3 mb-5">
-                <strong>1,499</strong>
-                <del>$1,999</del>
-              </div>
-              <p>
-                <router-link
-                  :to="pages.collection.path"
-                  class="btn btn-outline-primary rounded-0"
-                  >коллекция</router-link
-                >
-                <router-link
-                  :to="
-                    pages.collection.path +
-                    '?type=' +
-                    pages.collection.subsections[1].path
-                  "
-                  class="btn btn-primary rounded-0"
-                  >Женский отдел</router-link
-                >
-              </p>
-            </div>
-          </div>
-          <div class="col-lg-7 align-self-end text-center text-lg-right">
-            <img
-              src="images/new/person_transparent.png"
-              alt="Image"
-              class="img-fluid img-1"
-            />
-          </div>
-        </div>
-      </div>
-    </div>
+    <HomeMainPoster />
 
     <div class="products-wrap border-top-0">
       <div class="container-fluid">
@@ -59,10 +21,16 @@
         <div class="row align-items-center">
           <div class="col-lg-4 ml-auto order-lg-2 align-self-start">
             <div class="site-block-cover-content">
-              <h2 class="sub-title">#New Summer Collection 2019</h2>
-              <h1>Jacket</h1>
+              <h2 class="sub-title">
+                #Коллекция всесезон {{ new Date().getFullYear() }} года
+              </h2>
+              <h1>Женская коллекция</h1>
               <p>
-                <a href="#" class="btn btn-black rounded-0">Shop Now</a>
+                <router-link
+                  to="/collection?type=women"
+                  class="btn btn-black rounded-0"
+                  >В коллекцию</router-link
+                >
               </p>
             </div>
           </div>
@@ -80,10 +48,16 @@
         <div class="row align-items-center">
           <div class="col-lg-6 ml-auto order-lg-2 align-self-start">
             <div class="site-block-cover-content">
-              <h2 class="sub-title">#New Summer Collection 2019</h2>
-              <h1>New Denim Coat</h1>
+              <h2 class="sub-title">
+                #Коллекция всесезон {{ new Date().getFullYear() }} года
+              </h2>
+              <h1>Мужская коллекция</h1>
               <p>
-                <a href="#" class="btn btn-black rounded-0">Shop Now</a>
+                <router-link
+                  to="/collection?type=man"
+                  class="btn btn-black rounded-0"
+                  >В коллекцию</router-link
+                >
               </p>
             </div>
           </div>
@@ -98,6 +72,7 @@
 <script>
 import Product from "@/components/Product";
 import ProductSlider from "@/components/ProductsSlider";
+import HomeMainPoster from "@/components/Home/HomeMainPoster";
 import { pages } from "@/router/pages";
 
 export default {
@@ -108,9 +83,10 @@ export default {
   components: {
     Product,
     ProductSlider,
+    HomeMainPoster,
   },
-  mounted(){
-    this.products = this.$store.getters.getRandomProducts(6)
-  }
+  mounted() {
+    this.products = this.$store.getters.getRandomProducts(6);
+  },
 };
 </script>

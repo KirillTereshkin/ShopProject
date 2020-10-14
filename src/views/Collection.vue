@@ -25,7 +25,7 @@
                   <p v-if="!filteredProducts.length">Товары не найдены</p>
                   <div v-else class="row no-gutters products">
                     <div
-                      v-for="(product, index) in filteredProducts"
+                      v-for="(product, index) in paginatedProducts"
                       :key="index"
                       class="col-6 col-md-6 col-lg-6 border-top"
                     >
@@ -36,7 +36,7 @@
               </div>
             </div>
             <Pagination
-              :itemsNumber="products.length"
+              :itemsNumber="filteredProducts.length"
               :maxItemsOnPage="maxItemsOnPage"
               @set-current-page="currentPage = $event"
             />
@@ -50,7 +50,7 @@
 
               <CollectionSortBySize :products="products" />
 
-              <CollectionSortByColor />
+              <CollectionSortByColor v-if="false"/>
 
               <button class="btn btn-sm btn-primary" @click="resetFilters">
                 Сбросить фильтры
@@ -97,15 +97,17 @@ export default {
         return isValid;
       });
 
-      const page = query.page ? query.page - 1 : 0;
+      return products;
+    },
+    paginatedProducts(){
+      const page = this.$route.query.page ? this.$route.query.page - 1 : 0;
 
-      products = products.slice(
+      const products = this.filteredProducts.slice(
         page * this.maxItemsOnPage,
         (page + 1) * this.maxItemsOnPage
       );
-
       return products;
-    },
+    }
   },
   components: {
     Product,

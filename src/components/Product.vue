@@ -1,10 +1,10 @@
 <template>
   <router-link :to="`/product?id=${id}`" class="item">
-    <span v-if="isSale" class="tag">Sale</span>
-    <img :src="previewImage" alt="Image" class="img-fluid" />
+    <span v-if="isSale" class="tag">Скидка</span>
+    <img :src="previewImage" alt="Image" class="img-fluid preview-image" />
     <div class="item-info">
       <h3>{{ title }}</h3>
-      <span class="collection d-block">Summer Collection</span>
+      <span class="collection d-block">{{ collection }}</span>
       <strong class="price">
         {{ price | currencyFilter }}
         <del v-if="isSale">{{ salePrice | currencyFilter }}</del>
@@ -17,7 +17,7 @@ export default {
   name: "Product",
   props: {
     id: {
-      type: Number,
+      type: String,
       required: true,
     },
     title: {
@@ -40,6 +40,15 @@ export default {
       type: String,
       required: true,
     },
+    collection: {
+      type: String,
+      default: "Всесезон",
+    },
   },
 };
 </script>
+<style scoped>
+.preview-image {
+  background-size: cover;
+}
+</style>

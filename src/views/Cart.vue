@@ -3,8 +3,7 @@
     <div class="container">
         
       <div v-if="!$store.getters.getCartProducts.length">
-        <p>Корзина пуста</p>
-        <CartRedirectButton />
+        <h5 class="col-md-12">Корзина пуста, <router-link to="/collection">начать покупки</router-link></h5>
       </div>
 
       <div v-else>

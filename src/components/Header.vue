@@ -88,7 +88,10 @@ export default {
   }),
   computed: {
     cartItems() {
-      return this.$store.getters.getCartProducts.length;
+      const cartProducts = this.$store.getters.getCartProducts;
+      const str = JSON.stringify(cartProducts);
+      localStorage.productsCart = str;
+      return cartProducts.length;
     },
   },
 };

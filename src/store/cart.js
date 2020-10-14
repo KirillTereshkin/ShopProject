@@ -1,10 +1,31 @@
+import firebase from "firebase/app";
+
 export default {
   state: {
     cartProducts: [],
   },
+  actions: {
+    async makeCartProductsOrder({ commit, state }, orderData) {
+      try {
+        await firebase
+          .database()
+          .ref(`/orders`)
+          .push({
+            ...orderData,
+            date: new Date().toDateString(),
+            orders: state.cartProducts,
+          });
+        commit("clearCartProducts");
+      } catch (e) {
+        throw e;
+      }
+    },
+  },
   mutations: {
     setCartProducts(state, cartProduct) {
-      state.cartProducts.push(cartProduct);
+      if (Array.isArray(cartProduct))
+        state.cartProducts = [...state.cartProducts, ...cartProduct];
+      else state.cartProducts = [...state.cartProducts, cartProduct];
     },
     setCartProductsCount(state, { productIndex, productCount }) {
       state.cartProducts[productIndex].count = productCount;
@@ -12,13 +33,15 @@ export default {
     deleteCartProduct(state, index) {
       state.cartProducts.splice(index, 1);
     },
+    clearCartProducts(state) {
+      state.cartProducts = [];
+    },
   },
   getters: {
     getCartProducts(state) {
       return state.cartProducts;
     },
     getItemById(state, getters) {
-      console.log(getters);
       return state.cartProducts;
     },
     getCartProductsTotalSum(state) {

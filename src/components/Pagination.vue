@@ -47,8 +47,10 @@ export default {
     },
   },
   mixins: [paginationMixin],
-  updated() {
-    this.setPagination(this.itemsNumber, this.maxItemsOnPage);
+  watch: {
+    itemsNumber(val) {
+      this.setPagination(this.itemsNumber, this.maxItemsOnPage);
+    },
   },
   mounted() {
     this.setPagination(this.itemsNumber, this.maxItemsOnPage);
