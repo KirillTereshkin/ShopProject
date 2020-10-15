@@ -10,8 +10,10 @@ import "firebase/database";
 import firebaseConfig from "@/firebase.config";
 
 import currencyFilter from "@/filters/currency.filter";
+import dateFilter from "@/filters/date.filter";
 
 Vue.filter("currencyFilter", currencyFilter);
+Vue.filter("dateFilter", dateFilter);
 
 Vue.config.productionTip = false;
 

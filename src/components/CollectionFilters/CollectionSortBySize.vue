@@ -56,6 +56,7 @@ export default {
         item.sizes.forEach((size) => allSizes.add(size));
       });
       this.allSizes = [...allSizes];
+      this.allSizes.sort()
     },
     getsizesNumber() {
       const sizesNumber = {};

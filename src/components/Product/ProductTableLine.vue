@@ -8,7 +8,7 @@
     <td class="product-name">
       <h2 class="h5 text-black">{{ product.title }}</h2>
     </td>
-    <td>{{ product.size }}</td>
+    <td>{{ product.sizes.join(", ") }}</td>
     <td>
       {{ product.price | currencyFilter }}
       <br/>
@@ -17,15 +17,20 @@
       >
     </td>
     <td>
-      <ProductCounter class="td-quantity" v-model.number="productCount" />
+      <router-link
+        :to="'/edit-product?id=' + product.id"
+        class="btn btn-primary height-auto btn-sm"
+        title="Редактировать"
+        ><span class="material-icons"> edit </span></router-link
+      >
     </td>
-    <td>{{ (product.price * productCount) | currencyFilter }}</td>
     <td>
       <a
-        @click.prevent="deleteProductFromCart"
+        @click.prevent="deleteProduct(product.id)"
         href="#"
         class="btn btn-primary height-auto btn-sm"
-        >X</a
+        title="Удалить"
+        ><span class="material-icons"> delete </span></a
       >
     </td>
   </tr>
@@ -45,25 +50,13 @@ export default {
       required: true,
     },
   },
-  data: () => ({
-    productCount: 1,
-  }),
-  watch: {
-    productCount(val) {
-      this.$store.commit("setCartProductsCount", {
-        productIndex: this.productIndex,
-        productCount: val,
-      });
-    },
-  },
-  components: { ProductCounter },
   methods: {
-    deleteProductFromCart() {
-      this.$store.commit("deleteCartProduct", this.productIndex);
+    async deleteProduct(productId) {
+      try {
+        await this.$store.dispatch("deleteProduct", productId);
+      } catch (e) {}
     },
   },
-  mounted() {
-    this.productCount = this.product.count;
-  },
+  mounted() {},
 };
 </script>

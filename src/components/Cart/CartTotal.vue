@@ -19,7 +19,11 @@
           </div>
         </div>
 
-        <div class="row mb-5" v-if="totalPrice.priceWithSale !== totalPrice.priceWithoutSale">
+        <div
+          class="row mb-5"
+          style="font-weight: 600"
+          v-if="totalPrice.priceWithSale !== totalPrice.priceWithoutSale"
+        >
           <div class="col-md-6">
             <span class="text-black">Сумма заказа с учетом скидки</span>
           </div>

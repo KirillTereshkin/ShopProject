@@ -101,6 +101,7 @@ export default {
         ...this.selectedProduct,
         size: this.selectedSize,
         count: this.productCount,
+        isDone: false
       };
       this.$store.commit("setCartProducts", productChars);
 

@@ -41,4 +41,20 @@ export const pages = {
     name: "Корзина",
     path: "/cart",
   },
+  admin: {
+    name: "Администрирование",
+    path: "/site-admin",
+  },
+  productList: {
+    name: "Список продуктов",
+    path: "/products-list",
+  },
+  editProduct: {
+    name: "Редактирование товара",
+    path: "/edit-product",
+  },
+  orders: {
+    name: "Заказы",
+    path: "/orders"
+  }
 };
