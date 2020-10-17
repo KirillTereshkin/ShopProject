@@ -35,12 +35,13 @@ export default {
     sizesNumber: {},
   }),
   watch: {
-    checkedSize(val) {
-      this.$router
-        .push({
-          query: { ...this.$route.query, size: this.checkedSize, page: 1 },
-        })
-        .catch((e) => {});
+    checkedSize(val, oldVal) {
+      if (val.length !== oldVal.length)
+        this.$router
+          .push({
+            query: { ...this.$route.query, size: this.checkedSize, page: 1 },
+          })
+          .catch((e) => {});
     },
     $route(val) {
       const { size } = this.$route.query;
@@ -56,7 +57,7 @@ export default {
         item.sizes.forEach((size) => allSizes.add(size));
       });
       this.allSizes = [...allSizes];
-      this.allSizes.sort()
+      this.allSizes.sort();
     },
     getsizesNumber() {
       const sizesNumber = {};

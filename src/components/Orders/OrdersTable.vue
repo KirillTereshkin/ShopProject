@@ -21,6 +21,7 @@
               :order="order"
               :index="index"
               :id="id"
+              :isEditable="isEditable"
             />
           </tbody>
         </table>
@@ -42,6 +43,10 @@ export default {
       type: String,
       required: true,
     },
+    isEditable: {
+      type: Boolean,
+      default: true,
+    }
   },
   components: { OrdersTableLine },
 };

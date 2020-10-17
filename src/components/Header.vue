@@ -62,7 +62,48 @@
             </ul>
           </nav>
         </div>
+
         <div class="icons">
+          <div class="main-nav d-none d-lg-block">
+            <nav
+              class="site-navigation text-right text-md-center"
+              role="navigation"
+            >
+              <ul class="site-menu js-clone-nav d-none d-lg-block">
+                <li class="has-children active">
+                  <router-link :to="pages.collection.path" class="icon-black"
+                    ><span class="material-icons">
+                      account_circle
+                    </span></router-link
+                  >
+                  <ul class="dropdown">
+                    <li v-if="!userInfo">
+                      <router-link :to="profilePages.logIn.path">{{
+                        profilePages.logIn.name
+                      }}</router-link>
+                    </li>
+                    <li v-if="userInfo !== null && userInfo.isAdmin">
+                      <router-link :to="profilePages.admin.path">{{
+                        profilePages.admin.name
+                      }}</router-link>
+                    </li>
+                    <li>
+                      <router-link
+                        v-if="userInfo"
+                        :to="profilePages.myOrders.path"
+                        >{{ profilePages.myOrders.name }}</router-link
+                      >
+                    </li>
+                    <li>
+                      <a v-if="userInfo" href="#" @click.prevent="logOut">{{
+                        profilePages.logOut.name
+                      }}</a>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+          </div>
           <router-link to="/cart" class="icons-btn d-inline-block bag">
             <span class="icon-shopping-bag"></span>
             <span v-if="cartItems" class="number">{{ cartItems }}</span>
@@ -85,13 +126,33 @@ export default {
   name: "Header",
   data: () => ({
     pages,
+    profilePages: {
+      admin: { name: "Администрирование", path: "/site-admin" },
+      myOrders: { name: "Мои товары", path: "/my-orders" },
+      logOut: { name: "Выйти", path: "/logout" },
+      logIn: { name: "Войти", path: "/login" },
+    },
   }),
+  methods: {
+    saveDataToLocalStorage(data, fieldName) {
+      const str = JSON.stringify(data);
+      localStorage[fieldName] = str;
+    },
+    async logOut(){
+      await this.$store.dispatch('logout');
+      this.$router.push("/")
+    }
+  },
   computed: {
     cartItems() {
       const cartProducts = this.$store.getters.getCartProducts;
-      const str = JSON.stringify(cartProducts);
-      localStorage.productsCart = str;
+      this.saveDataToLocalStorage(cartProducts, "productsCart");
       return cartProducts.length;
+    },
+    userInfo() {
+      const userInfo = this.$store.getters.getUserInfo;
+      this.saveDataToLocalStorage(userInfo, "userInfo");
+      return userInfo;
     },
   },
 };
@@ -99,5 +160,12 @@ export default {
 <style scoped>
 .site-navbar {
   position: relative !important;
+}
+.icons {
+  display: flex;
+  align-items: center;
+}
+.icon-black {
+  color: black !important;
 }
 </style>

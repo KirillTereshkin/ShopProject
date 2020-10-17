@@ -56,5 +56,17 @@ export const pages = {
   orders: {
     name: "Заказы",
     path: "/orders"
+  },
+  login: {
+    name: "Вход в систему",
+    path: "/login"
+  },
+  myOrders: {
+    name: "Мои заказы",
+    path: "/my-orders"
+  },
+  register: {
+    name: "Регистрация",
+    path: "/register"
   }
 };

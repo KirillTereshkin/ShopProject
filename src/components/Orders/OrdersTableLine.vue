@@ -19,7 +19,7 @@
     <td>{{ order.count }}</td>
     <td>{{ (order.price * order.count) | currencyFilter }}</td>
     <td>
-      <input type="checkbox" v-model="isDone" @change="setDoneStatus" />
+      <input type="checkbox" v-model="isDone" @change="setDoneStatus" :disabled="!isEditable"/>
     </td>
   </tr>
 </template>
@@ -39,6 +39,10 @@ export default {
       type: String,
       required: true,
     },
+    isEditable: {
+      type: Boolean,
+      default: true,
+    }
   },
   data: () => ({
     isDone: false,

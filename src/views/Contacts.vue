@@ -114,12 +114,26 @@ export default {
   }),
   computed: {
     isSendButtonDisabled() {
-      return !(this.name.length && this.surname.length && validateEmail(this.email));
+      return !(
+        this.name.length &&
+        this.surname.length &&
+        validateEmail(this.email)
+      );
     },
   },
+  mounted() {
+    this.setUserInfo();
+  },
   methods: {
-    sendMessage() {
+    setUserInfo() {
+      const userInfo = this.$store.getters.getUserInfo;
+      if (userInfo) {
+        this.email = userInfo.email;
+        this.name = userInfo.name;
+        this.surname = userInfo.surname;
+      }
     },
+    sendMessage() {},
   },
 };
 </script>

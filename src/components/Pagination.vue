@@ -1,5 +1,5 @@
 <template>
-  <div v-if="pagesCount !== 1 &&   pagesCount !== 0" class="row">
+  <div v-if="pagesCount !== 1 && pagesCount !== 0" class="row">
     <div class="col-md-12 text-center">
       <div class="site-block-27">
         <ul>

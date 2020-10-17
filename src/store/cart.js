@@ -5,9 +5,9 @@ export default {
     cartProducts: [],
   },
   actions: {
-    async makeCartProductsOrder({ commit, state }, orderData) {
+    async makeCartProductsOrder({ dispatch, commit, state }, orderData) {
       try {
-        await firebase
+        const response = await firebase
           .database()
           .ref(`/orders`)
           .push({
@@ -15,8 +15,11 @@ export default {
             date: new Date().toDateString(),
             orders: state.cartProducts,
           });
+        commit("addOrderId", response.key);
+        await dispatch("updateUserInfo");
         commit("clearCartProducts");
       } catch (e) {
+        console.log(e)
         throw e;
       }
     },

@@ -69,6 +69,7 @@ export default {
           ...this.$route.query,
           minPrice: this.currentMin,
           maxPrice: this.currentMax,
+          page:1
         },
       });
       this.isChanged = false;

@@ -90,22 +90,21 @@ export default {
   computed: {
     filteredProducts() {
       const { query } = this.$route;
-
       let products = this.products.filter((item) => {
         let isValid = !query.type || item.type === query.type;
         if (query.minPrice) isValid = isValid && item.price >= query.minPrice;
         if (query.maxPrice) isValid = isValid && item.price <= query.maxPrice;
         if (query.size && query.size.length)
           isValid =
-            isValid && item.sizes.some((size) => query.size.includes(size));
+            isValid && item.sizes.some((size) => query.size.includes(`${size}`));
         return isValid;
       });
 
       return products;
     },
     paginatedProducts() {
-      const page = this.$route.query.page ? this.$route.query.page - 1 : 0;
-
+      let page = this.$route.query.page ? this.$route.query.page - 1 : 0;
+      
       const products = this.filteredProducts.slice(
         page * this.maxItemsOnPage,
         (page + 1) * this.maxItemsOnPage

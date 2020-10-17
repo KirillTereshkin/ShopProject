@@ -180,13 +180,14 @@ export default {
         : "размеры не выбраны";
     },
     isSaveButtonEnabled() {
-      return !!(
+      return !(
         this.previewImage &&
         this.title &&
         this.description &&
         this.price &&
+        this.type &&
         this.collection &&
-        !this.sizes.length
+        !!this.sizes.length
       );
     },
   },

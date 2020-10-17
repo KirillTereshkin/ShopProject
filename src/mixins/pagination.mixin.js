@@ -17,7 +17,7 @@ export default {
       this.currentPage = newPageIndex;
       this.$router.push({
         query: { ...this.$route.query, page: newPageIndex },
-      });
+      }).catch(e=>{});
     },
   },
 };

@@ -178,11 +178,21 @@ export default {
   },
   mounted() {
     if (!this.$store.getters.getCartProducts.length) this.$router.push("/");
+    this.setUserInfo();
 
     this.cartProducts = this.$store.getters.getCartProducts;
     this.totalSum = this.$store.getters.getCartProductsTotalSum;
   },
   methods: {
+    setUserInfo() {
+      const userInfo = this.$store.getters.getUserInfo;
+      if (userInfo) {
+        this.email = userInfo.email;
+        this.firstName = userInfo.name;
+        this.secondName = userInfo.surname;
+        this.phoneNumber = userInfo.phoneNumber;
+      }
+    },
     async makeOrder() {
       try {
         await this.$store.dispatch("makeCartProductsOrder", {
@@ -192,6 +202,7 @@ export default {
           phoneNumber: this.phoneNumber,
           withdrawDate: this.withdrawDate,
           additionalInfo: this.additionalInfo,
+          isAccomplished: false,
         });
         this.$router.push("/thankyou");
       } catch (e) {

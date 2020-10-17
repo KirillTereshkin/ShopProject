@@ -1,6 +1,7 @@
 import Vue from "vue";
 import { pages } from "./pages";
 import VueRouter from "vue-router";
+import firebase from "firebase/app";
 
 Vue.use(VueRouter);
 
@@ -80,6 +81,27 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Orders.vue"),
   },
   {
+    path: pages.login.path,
+    name: pages.login.name,
+    meta: { home: "home" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Login.vue"),
+  },
+  {
+    path: pages.register.path,
+    name: pages.register.name,
+    meta: { home: "home" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Register.vue"),
+  },
+  {
+    path: pages.myOrders.path,
+    name: pages.myOrders.name,
+    meta: { home: "home" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/MyOrders.vue"),
+  },
+  {
     path: "*",
     redirect: "/",
   },
@@ -88,6 +110,11 @@ const routes = [
 const router = new VueRouter({
   mode: "history",
   routes,
+});
+
+router.beforeEach((to, from, next) => {
+  if (to.meta.home === "admin" && !firebase.auth().currentUser) next("/login");
+  else next();
 });
 
 export default router;

@@ -1,8 +1,6 @@
 <template>
   <div class="site-section">
     <div class="container">
-      <AdminNavbar />
-
       <div class="filter-form">
         <h3 class="text-black">Найти заказ</h3>
         <div class="filter-form__element">
@@ -32,39 +30,50 @@
           /><label for="is-accomplished-hidden">Скрыть закрытые заказы</label>
         </div>
       </div>
-
-      <div v-if="orders">
+      <Loader v-if="!orders" />
+      <h3
+        v-else-if="orders.length===0"
+        class="text-black"
+        style="margin-top: 20px"
+      >
+        Заказы пока отсутствуют,
+        <router-link to="/collection">перейти в коллекцию</router-link>
+      </h3>
+      <h3
+        v-else-if="!filteredProducts.length"
+        class="text-black"
+        style="margin-top: 20px"
+      >
+        Заказы, удволетворяющие фильтрам отсутствуют
+      </h3>
+      <div v-else>
         <OrderItem
           v-for="item in filteredProducts"
           :key="item[0]"
           :id="item[0]"
+          :isEditable="false"
         />
       </div>
-      <Loader v-else/>
     </div>
   </div>
 </template>
 <script>
 import OrderItem from "@/components/Orders/OrderItem";
-import AdminNavbar from "@/components/AdminNavbar";
-import Loader from "@/components/Loader"
+import Loader from "@/components/Loader";
 
 export default {
-  name: "orders-page",
+  name: "my-orders",
   data: () => ({
     orderData: "",
     hideReady: false,
     hideAccomplished: false,
+    orders: null,
   }),
+  components: { OrderItem, Loader },
   computed: {
-    orders() {
-      return this.$store.getters.getOrders;
-    },
     filteredProducts() {
       return Object.entries(this.orders).filter((item) => {
         let isAppropriate = false;
-
-        isAppropriate = isAppropriate || item[0].includes(this.orderData);
         for (let i in item[1])
           if (typeof item[1][i] === "string")
             isAppropriate =
@@ -84,9 +93,8 @@ export default {
       });
     },
   },
-  components: { OrderItem, AdminNavbar, Loader },
   async mounted() {
-    await this.$store.dispatch("fetchOrders");
+    this.orders = await this.$store.dispatch("fetchOrdersById");
   },
 };
 </script>
