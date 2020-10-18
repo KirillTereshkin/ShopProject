@@ -28,7 +28,8 @@ export default {
   beforeCreate() {
     const products = JSON.parse(localStorage.getItem("productsCart"));
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
-    this.$store.commit("setCartProducts", products);
+    
+    if(products) this.$store.commit("setCartProducts", products);
     this.$store.commit("setUserInfo", userInfo);
   },
   async mounted() {
