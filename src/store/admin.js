@@ -50,6 +50,7 @@ export default {
     async fetchOrdersById({ commit, state }) {
       try {
         const orders = state.userInfo.orders;
+        if(!orders) return {};
         const response = (
           await firebase
             .database()
