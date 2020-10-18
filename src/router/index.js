@@ -2,6 +2,7 @@ import Vue from "vue";
 import { pages } from "./pages";
 import VueRouter from "vue-router";
 import firebase from "firebase/app";
+import store from "@/store/index";
 
 Vue.use(VueRouter);
 
@@ -56,6 +57,13 @@ const routes = [
       import(/* webpackChunkName: "about" */ "../views/Contacts.vue"),
   },
   {
+    path: pages.checkOrder.path,
+    name: pages.checkOrder.name,
+    meta: { home: "home" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/CheckOrder.vue"),
+  },
+  {
     path: pages.admin.path,
     redirect: pages.productList.path,
   },
@@ -79,6 +87,20 @@ const routes = [
     meta: { home: "admin" },
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/Orders.vue"),
+  },
+  {
+    path: pages.questions.path,
+    name: pages.questions.name,
+    meta: { home: "admin" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Questions.vue"),
+  },
+  {
+    path: pages.subscribers.path,
+    name: pages.subscribers.name,
+    meta: { home: "admin" },
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/Subscribers.vue"),
   },
   {
     path: pages.login.path,
@@ -113,6 +135,13 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  if (
+    to.meta.home === "admin" &&
+    (!store.state.admin.userInfo ||
+      (store.state.admin.userInfo && !store.state.admin.userInfo.isAdmin))
+  )
+    next("/home");
+
   if (to.meta.home === "admin" && !firebase.auth().currentUser) next("/login");
   else next();
 });

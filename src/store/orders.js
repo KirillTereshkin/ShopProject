@@ -6,6 +6,22 @@ export default {
     isLoaded: false,
   },
   actions: {
+    async checkOrder({ commit }, orderInfo) {
+      try {
+        const response = (
+          await firebase
+            .database()
+            .ref("/orders")
+            .child(orderInfo.id)
+            .once("value")
+        ).val();
+        if (!response || (response && response.email !== orderInfo.email)) throw Error();
+        commit("setOrders", { [orderInfo.id]: response });
+        return orderInfo.id;
+      } catch (e) {
+        throw e;
+      }
+    },
     async fetchOrders({ commit }) {
       try {
         const orders = (

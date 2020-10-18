@@ -50,7 +50,7 @@
       </h5>
     </div>
 
-    <div class="order__personal-info">
+    <div class="order__personal-info" v-if="orderInfo.additionalInfo">
       <h5>
         <span class="text-black"> Дополнительная информация:</span>
         {{ orderInfo.additionalInfo }}

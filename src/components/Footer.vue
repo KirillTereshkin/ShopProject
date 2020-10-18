@@ -12,28 +12,26 @@
             </p>
           </div>
           <div class="block-7">
-            <form action="#" method="post">
-              <label for="email_subscribe" class="footer-heading"
-                >Подписаться на новости</label
+            <label for="email_subscribe" class="footer-heading"
+              >Подписаться на новости</label
+            >
+            <div class="form-group">
+              <input
+                type="text"
+                class="form-control py-4"
+                id="email_subscribe"
+                placeholder="Email"
+                v-model="email"
+              />
+              <button
+                id="btn_subscribe"
+                class="btn btn-sm btn-primary"
+                :disabled="!isEmailValid"
+                @click="subscribe"
               >
-              <div class="form-group">
-                <input
-                  type="text"
-                  class="form-control py-4"
-                  id="email_subscribe"
-                  placeholder="Email"
-                  v-model="email"
-                />
-                <button
-                  type="submit"
-                  id="btn_subscribe"
-                  class="btn btn-sm btn-primary"
-                  :disabled="!isEmailValid"
-                >
-                  Отправить
-                </button>
-              </div>
-            </form>
+                Отправить
+              </button>
+            </div>
           </div>
         </div>
 
@@ -42,8 +40,13 @@
             <h3 class="footer-heading mb-4">Контактная информация</h3>
             <ul class="list-unstyled">
               <li class="address">
-                ул. Гагарина, 2А., тц. Домино, Второй этаж, г. Малоярославец, Калужская
-                обл., Россия, 249096
+                <a
+                  style="color: #207dff"
+                  target="_blank"
+                  href="https://www.google.com/maps/place/%D0%94%D0%BE%D0%BC%D0%B8%D0%BD%D0%BE/@55.0090657,36.4669591,17z/data=!3m1!4b1!4m5!3m4!1s0x46cad51c278b187d:0x8c515f8eaf7215bc!8m2!3d55.0090626!4d36.4691478"
+                  >ул. Гагарина, 2А., тц. Домино, Второй этаж, г. Малоярославец,
+                  Калужская обл., Россия, 249096
+                </a>
               </li>
               <li class="phone">
                 <a href="tel://89105175964">+7 (910) 517 59 64</a>
@@ -67,6 +70,12 @@ export default {
   computed: {
     isEmailValid() {
       return validateEmail(this.email);
+    },
+  },
+  methods: {
+    async subscribe() {
+      await this.$store.dispatch("subscribe", this.email);
+      this.email = "";
     },
   },
 };

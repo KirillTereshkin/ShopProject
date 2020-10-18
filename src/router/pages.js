@@ -37,6 +37,10 @@ export const pages = {
     name: "Контакты",
     path: "/contacts",
   },
+  checkOrder: {
+    name: "Отследить заказ",
+    path: "/check-order",
+  },
   cart: {
     name: "Корзина",
     path: "/cart",
@@ -53,20 +57,28 @@ export const pages = {
     name: "Редактирование товара",
     path: "/edit-product",
   },
+  questions: {
+    name: "Вопросы покупателей",
+    path: "/questions",
+  },
+  subscribers: {
+    name: "Подписались на оповещения",
+    path: "/subscribers",
+  },
   orders: {
     name: "Заказы",
-    path: "/orders"
+    path: "/orders",
   },
   login: {
     name: "Вход в систему",
-    path: "/login"
+    path: "/login",
   },
   myOrders: {
     name: "Мои заказы",
-    path: "/my-orders"
+    path: "/my-orders",
   },
   register: {
     name: "Регистрация",
-    path: "/register"
-  }
+    path: "/register",
+  },
 };

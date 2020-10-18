@@ -195,7 +195,7 @@ export default {
     },
     async makeOrder() {
       try {
-        await this.$store.dispatch("makeCartProductsOrder", {
+        const response = await this.$store.dispatch("makeCartProductsOrder", {
           firstName: this.firstName,
           secondName: this.secondName,
           email: this.email,
@@ -204,7 +204,7 @@ export default {
           additionalInfo: this.additionalInfo,
           isAccomplished: false,
         });
-        this.$router.push("/thankyou");
+        this.$router.push(`/thankyou?orderId=${response}`);
       } catch (e) {
         console.error(
           "Упс, что-то пошло не так, попробуйте перезагрузить страницу и сделать заказ заново..."

@@ -18,8 +18,9 @@ export default {
         commit("addOrderId", response.key);
         await dispatch("updateUserInfo");
         commit("clearCartProducts");
+        return response.key;
       } catch (e) {
-        console.log(e)
+        console.log(e);
         throw e;
       }
     },

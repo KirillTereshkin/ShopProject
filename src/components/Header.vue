@@ -29,7 +29,7 @@
           >
             <ul class="site-menu js-clone-nav d-none d-lg-block">
               <li>
-                <router-link to="/">Домашня страница</router-link>
+                <router-link :to="pages.home.path">{{pages.home.name}}</router-link>
               </li>
 
               <li class="has-children active">
@@ -54,10 +54,11 @@
               </li>
 
               <li>
-                <router-link v-if="false" to="/">Каталог</router-link>
+                <router-link :to="pages.contacts.path">{{pages.contacts.name}}</router-link>
               </li>
+
               <li>
-                <router-link to="/contacts">Контакты</router-link>
+                <router-link :to="pages.checkOrder.path">{{pages.checkOrder.name}}</router-link>
               </li>
             </ul>
           </nav>
@@ -138,10 +139,10 @@ export default {
       const str = JSON.stringify(data);
       localStorage[fieldName] = str;
     },
-    async logOut(){
-      await this.$store.dispatch('logout');
-      this.$router.push("/")
-    }
+    async logOut() {
+      await this.$store.dispatch("logout");
+      this.$router.push("/").catch((e) => {});
+    },
   },
   computed: {
     cartItems() {

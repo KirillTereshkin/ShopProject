@@ -3,6 +3,50 @@ import firebase from "firebase/app";
 export default {
   state: { userInfo: null },
   actions: {
+    async fetchSubscribers() {
+      try {
+        const response = (
+          await firebase
+            .database()
+            .ref(`/subscribers`)
+            .once("value")
+        ).val();
+        return response;
+      } catch (e) {}
+    },
+    async fetchQuestions() {
+      try {
+        const response = (
+          await firebase
+            .database()
+            .ref(`/questions`)
+            .once("value")
+        ).val();
+        return response;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async subscribe(_, email) {
+      try {
+        await firebase
+          .database()
+          .ref(`/subscribers`)
+          .push(email);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async askQuestion(_, question) {
+      try {
+        await firebase
+          .database()
+          .ref(`/questions`)
+          .push(question);
+      } catch (e) {
+        console.error(e);
+      }
+    },
     async fetchOrdersById({ commit, state }) {
       try {
         const orders = state.userInfo.orders;

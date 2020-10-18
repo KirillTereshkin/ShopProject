@@ -78,7 +78,7 @@
                   <button
                     type="submit"
                     class="btn btn-primary btn-lg btn-block"
-                    @click.prevent="sendMessage"
+                    @click.prevent="askQuestion"
                     :disabled="isSendButtonDisabled"
                   >
                     Отправить сообщение
@@ -94,6 +94,11 @@
               >Малоярославец</span
             >
             <p class="mb-0">ул. Гагарина, 2А., тц. Домино, Второй этаж</p>
+            <a
+              target="_blank"
+              href="https://www.google.com/maps/place/%D0%94%D0%BE%D0%BC%D0%B8%D0%BD%D0%BE/@55.0090626,36.4691478,15z/data=!4m5!3m4!1s0x0:0x8c515f8eaf7215bc!8m2!3d55.0090626!4d36.4691478"
+              >посмотреть на карте</a
+            >
           </div>
         </div>
       </div>
@@ -133,7 +138,17 @@ export default {
         this.surname = userInfo.surname;
       }
     },
-    sendMessage() {},
+    async askQuestion() {
+      await this.$store.dispatch("askQuestion", {
+        name: this.name,
+        surname: this.surname,
+        email: this.email,
+        theme: this.theme,
+        message: this.message,
+      });
+      this.message = "";
+      this.theme = "";
+    },
   },
 };
 </script>
