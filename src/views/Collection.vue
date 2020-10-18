@@ -85,7 +85,7 @@ export default {
   data: () => ({
     products: null,
     pages,
-    maxItemsOnPage: 4,
+    maxItemsOnPage: 16,
   }),
   computed: {
     filteredProducts() {

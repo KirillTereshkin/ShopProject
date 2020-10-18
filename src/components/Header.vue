@@ -72,7 +72,7 @@
             >
               <ul class="site-menu js-clone-nav d-none d-lg-block">
                 <li class="has-children active">
-                  <router-link :to="pages.collection.path" class="icon-black"
+                  <router-link to="/" class="icon-black"
                     ><span class="material-icons">
                       account_circle
                     </span></router-link
