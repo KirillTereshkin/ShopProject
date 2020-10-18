@@ -6,26 +6,22 @@ npm install
 ```
 
 ### Starting project
-```
+
 * npm run serve
 * npm run build
-```
 
 ### Configuring project
-```
-1. initiate firebase project
-2. replace firebase config in src/firebase.config.js on your config
-3. init and deploy your store in firebase
-```
+
+1. Initiate firebase project
+2. Replace firebase config in [src/firebase.config.js](https://github.com/KirillTereshkin/ShopProject/blob/master/src/firebase.config.js) on your config
+3. Init and deploy your store in firebase
 
 ### Fullfilment the store
-```
-1. registrate account in private cabinet
-2. set admin privileges in realtime database by setting parameter isAdmin by path users/userId
-3. go to the /site-admin and add your products
-```
+
+1. Registrate account in private cabinet
+2. Set admin privileges in realtime database by setting parameter isAdmin by path users/userId
+3. Go to the /site-admin and add your products
 
 ### Additional info
-```
-for the interface basement this [layout](https://colorlib.com/wp/template/dealers/) was used
-```
+
+For the interface basement this [layout](https://colorlib.com/wp/template/dealers/) was used
