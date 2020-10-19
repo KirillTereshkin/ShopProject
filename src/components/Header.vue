@@ -28,11 +28,16 @@
             role="navigation"
           >
             <ul class="site-menu js-clone-nav d-none d-lg-block">
-              <li>
-                <router-link :to="pages.home.path">{{pages.home.name}}</router-link>
+              <li :class="isLinkActive(pages.home.path)">
+                <router-link :to="pages.home.path">{{
+                  pages.home.name
+                }}</router-link>
               </li>
 
-              <li class="has-children active">
+              <li
+                class="has-children"
+                :class="isLinkActive(pages.collection.path)"
+              >
                 <router-link :to="pages.collection.path">{{
                   pages.collection.name
                 }}</router-link>
@@ -53,12 +58,16 @@
                 </ul>
               </li>
 
-              <li>
-                <router-link :to="pages.contacts.path">{{pages.contacts.name}}</router-link>
+              <li :class="isLinkActive(pages.contacts.path)">
+                <router-link :to="pages.contacts.path">{{
+                  pages.contacts.name
+                }}</router-link>
               </li>
 
-              <li>
-                <router-link :to="pages.checkOrder.path">{{pages.checkOrder.name}}</router-link>
+              <li :class="isLinkActive(pages.checkOrder.path)">
+                <router-link :to="pages.checkOrder.path">{{
+                  pages.checkOrder.name
+                }}</router-link>
               </li>
             </ul>
           </nav>
@@ -71,13 +80,20 @@
               role="navigation"
             >
               <ul class="site-menu js-clone-nav d-none d-lg-block">
-                <li class="has-children active">
-                  <router-link to="/" class="icon-black"
+                <li class="has-children ">
+                  <router-link
+                    to="/" 
+                    :class="isLinkOneOf"
                     ><span class="material-icons">
                       account_circle
                     </span></router-link
                   >
                   <ul class="dropdown">
+                    <li v-if="!userInfo">
+                      <router-link :to="profilePages.register.path">{{
+                        profilePages.register.name
+                      }}</router-link>
+                    </li>
                     <li v-if="!userInfo">
                       <router-link :to="profilePages.logIn.path">{{
                         profilePages.logIn.name
@@ -105,7 +121,11 @@
               </ul>
             </nav>
           </div>
-          <router-link to="/cart" class="icons-btn d-inline-block bag">
+          <router-link
+            :to="pages.cart.path"
+            class="icons-btn d-inline-block bag"
+            :class="isLinkActive(pages.cart.path, 'text-primary')"
+          >
             <span class="icon-shopping-bag"></span>
             <span v-if="cartItems" class="number">{{ cartItems }}</span>
           </router-link>
@@ -132,6 +152,7 @@ export default {
       myOrders: { name: "Мои товары", path: "/my-orders" },
       logOut: { name: "Выйти", path: "/logout" },
       logIn: { name: "Войти", path: "/login" },
+      register: { name: "Зарегестрироваться", path: "/register" },
     },
   }),
   methods: {
@@ -142,6 +163,9 @@ export default {
     async logOut() {
       await this.$store.dispatch("logout");
       this.$router.push("/").catch((e) => {});
+    },
+    isLinkActive(linkName, activeClass = "active") {
+      return linkName === this.$route.path ? activeClass : "";
     },
   },
   computed: {
@@ -154,6 +178,13 @@ export default {
       const userInfo = this.$store.getters.getUserInfo;
       this.saveDataToLocalStorage(userInfo, "userInfo");
       return userInfo;
+    },
+    isLinkOneOf() {
+      return Object.values(this.profilePages)
+        .map((item) => item.path)
+        .includes(this.$route.path)
+        ? "icon-active"
+        : "icon-black";
     },
   },
 };
@@ -168,5 +199,8 @@ export default {
 }
 .icon-black {
   color: black !important;
+}
+.icon-active {
+  color: #207dff !important;
 }
 </style>

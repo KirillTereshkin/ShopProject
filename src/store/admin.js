@@ -47,23 +47,6 @@ export default {
         console.error(e);
       }
     },
-    async fetchOrdersById({ commit, state }) {
-      try {
-        const orders = state.userInfo.orders;
-        if(!orders) return {};
-        const response = (
-          await firebase
-            .database()
-            .ref("/orders")
-            .once("value")
-        ).val();
-        for (let id in response) if (!orders.includes(id)) delete response[id];
-        commit("setOrders", response);
-        return response;
-      } catch (e) {
-        console.error(e);
-      }
-    },
     async logIn({ dispatch, commit }, { email, password }) {
       try {
         await firebase.auth().signInWithEmailAndPassword(email, password);

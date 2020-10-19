@@ -15,7 +15,8 @@ export default {
             .child(orderInfo.id)
             .once("value")
         ).val();
-        if (!response || (response && response.email !== orderInfo.email)) throw Error();
+        if (!response || (response && response.email !== orderInfo.email))
+          throw Error();
         commit("setOrders", { [orderInfo.id]: response });
         return orderInfo.id;
       } catch (e) {
@@ -24,13 +25,32 @@ export default {
     },
     async fetchOrders({ commit }) {
       try {
-        const orders = (
+        let orders = (
           await firebase
             .database()
             .ref(`/orders`)
             .once("value")
         ).val();
+        if (!orders) orders = {};
         commit("setOrders", orders);
+      } catch (e) {
+        console.error(e);
+      }
+    },
+    async fetchOrdersById({ commit, getters }) {
+      try {
+        const orders = getters.getUserInfo.orders;
+        if (!orders) return {};
+        let response = (
+          await firebase
+            .database()
+            .ref("/orders")
+            .once("value")
+        ).val();
+        if(!response) response = {};
+        for (let id in response) if (!orders.includes(id)) delete response[id];
+        commit("setOrders", response);
+        return response;
       } catch (e) {
         console.error(e);
       }
