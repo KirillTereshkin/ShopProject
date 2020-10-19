@@ -1,19 +1,27 @@
-# shopproject
+# The template of the clothing store
 
 ## Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+### Starting project
 
-### Compiles and minifies for production
-```
-npm run build
-```
+* npm run serve
+* npm run build
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Configuring project
+
+1. Initiate firebase project
+2. Replace firebase config in [src/firebase.config.js](https://github.com/KirillTereshkin/ShopProject/blob/master/src/firebase.config.js) on your config
+3. Init and deploy your store in firebase
+
+### Fullfilment the store
+
+1. Registrate account in private cabinet
+2. Set admin privileges in realtime database by setting parameter isAdmin by path users/userId
+3. Go to the /site-admin and add your products
+
+### Additional info
+
+For the interface basement this [layout](https://colorlib.com/wp/template/dealers/) was used
