@@ -1,4 +1,4 @@
-# The template of the clothing store
+# The template of the clothing store ([link](https://vis-a-vis-maloyaroslavets.web.app/))
 
 ## Project setup
 ```
