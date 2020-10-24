@@ -107,6 +107,7 @@
 </template>
 <script>
 import validateEmail from "@/filters/email.validation";
+import getToastMessage from "@/toast/toast-messages";
 
 export default {
   name: "Contacts",
@@ -139,15 +140,20 @@ export default {
       }
     },
     async askQuestion() {
-      await this.$store.dispatch("askQuestion", {
-        name: this.name,
-        surname: this.surname,
-        email: this.email,
-        theme: this.theme,
-        message: this.message,
-      });
-      this.message = "";
-      this.theme = "";
+      try {
+        await this.$store.dispatch("askQuestion", {
+          name: this.name,
+          surname: this.surname,
+          email: this.email,
+          theme: this.theme,
+          message: this.message,
+        });
+        this.$toasted.success(getToastMessage("successAsk"));
+        this.message = "";
+        this.theme = "";
+      } catch (e) {
+        this.$toasted.error(e.code);
+      }
     },
   },
 };

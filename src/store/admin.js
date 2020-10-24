@@ -83,7 +83,7 @@ export default {
           .set(userInfo);
         commit("setUserInfo", userInfo);
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
     async updateUserInfo({ dispatch, state }) {

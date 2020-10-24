@@ -59,8 +59,7 @@ export default {
 
       this.currentMin =
         query.minPrice || Math.round(totalMin + 0.25 * (totalMax - totalMin));
-      this.currentMax = query.maxPrice || Math.round(0.75 * totalMax);
-
+      this.currentMax = query.maxPrice || Math.round(totalMin + 0.75 * (totalMax - totalMin));
       return { totalMin, totalMax };
     },
     filterByPrice() {

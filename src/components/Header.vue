@@ -81,9 +81,7 @@
             >
               <ul class="site-menu js-clone-nav d-none d-lg-block">
                 <li class="has-children ">
-                  <router-link
-                    to="/" 
-                    :class="isLinkOneOf"
+                  <router-link to="/" :class="isLinkOneOf"
                     ><span class="material-icons">
                       account_circle
                     </span></router-link
@@ -161,8 +159,12 @@ export default {
       localStorage[fieldName] = str;
     },
     async logOut() {
-      await this.$store.dispatch("logout");
-      this.$router.push("/").catch((e) => {});
+      try {
+        await this.$store.dispatch("logout");
+        this.$router.push("/").catch((e) => {});
+      } catch (e) {
+        console.error(e);
+      }
     },
     isLinkActive(linkName, activeClass = "active") {
       return linkName === this.$route.path ? activeClass : "";

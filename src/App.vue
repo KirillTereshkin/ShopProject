@@ -14,8 +14,8 @@ import ShopHeader from "@/components/Header";
 import ShopFooter from "@/components/Footer";
 import SectionPath from "@/components/Path";
 import Loader from "@/components/Loader";
-
 export default {
+  name: "App",
   components: {
     MobileHeader,
     ShopHeader,
@@ -33,7 +33,7 @@ export default {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
 
     if (products) this.$store.commit("setCartProducts", products);
-    this.$store.commit("setUserInfo", userInfo);
+    if (userInfo) this.$store.commit("setUserInfo", userInfo);
   },
   async mounted() {
     await this.$store.dispatch("fetchProducts");

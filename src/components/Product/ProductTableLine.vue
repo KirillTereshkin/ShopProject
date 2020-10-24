@@ -11,7 +11,7 @@
     <td>{{ product.sizes.join(", ") }}</td>
     <td>
       {{ product.price | currencyFilter }}
-      <br/>
+      <br />
       <span style="color: gray" v-if="product.isSale"
         >( Без учета скидки - {{ product.salePrice | currencyFilter }})</span
       >
@@ -37,6 +37,7 @@
 </template>
 <script>
 import ProductCounter from "@/components/ProductCounter";
+import getToastMessage from "@/toast/toast-messages";
 
 export default {
   name: "cart-table-line",
@@ -54,7 +55,10 @@ export default {
     async deleteProduct(productId) {
       try {
         await this.$store.dispatch("deleteProduct", productId);
-      } catch (e) {}
+        this.$toasted.success(getToastMessage("successDelete"));
+      } catch (e) {
+        this.$toasted.success(getToastMessage(e.code));
+      }
     },
   },
   mounted() {},

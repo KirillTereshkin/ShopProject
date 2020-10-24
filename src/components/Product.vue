@@ -1,6 +1,6 @@
 <template>
   <router-link :to="`/product?id=${id}`" class="item">
-    <span v-if="isSale" class="tag">Скидка</span>
+    <span v-if="isSale" class="tag">Скидка {{(100 - price/salePrice*100).toFixed(0)}} %</span>
     <img :src="previewImage" alt="Image" class="img-fluid preview-image" />
     <div class="item-info">
       <h3>{{ title }}</h3>

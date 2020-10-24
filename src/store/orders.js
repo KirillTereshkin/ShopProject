@@ -16,7 +16,7 @@ export default {
             .once("value")
         ).val();
         if (!response || (response && response.email !== orderInfo.email))
-          throw Error();
+          throw Error("orderNotExist");
         commit("setOrders", { [orderInfo.id]: response });
         return orderInfo.id;
       } catch (e) {
@@ -39,7 +39,7 @@ export default {
     },
     async fetchOrdersById({ commit, getters }) {
       try {
-        const orders = getters.getUserInfo.orders;
+        const orders = getters.getUserInfo ? getters.getUserInfo.orders : [];
         if (!orders) return {};
         let response = (
           await firebase
@@ -47,7 +47,7 @@ export default {
             .ref("/orders")
             .once("value")
         ).val();
-        if(!response) response = {};
+        if (!response) response = {};
         for (let id in response) if (!orders.includes(id)) delete response[id];
         commit("setOrders", response);
         return response;

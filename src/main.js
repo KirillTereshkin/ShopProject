@@ -1,4 +1,5 @@
 import Vue from "vue";
+import Toasted from "vue-toasted";
 import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
@@ -15,6 +16,7 @@ import dateFilter from "@/filters/date.filter";
 Vue.filter("currencyFilter", currencyFilter);
 Vue.filter("dateFilter", dateFilter);
 
+Vue.use(Toasted, { duration: 3000, keepOnHover: true });
 Vue.config.productionTip = false;
 
 firebase.initializeApp(firebaseConfig);

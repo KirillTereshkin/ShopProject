@@ -1,31 +1,23 @@
-<template>
-  <div class="login-navbar">
-    <div>
-      <router-link :class="{'text-black': $route.path === '/login'}" to="/login"><h4>Вход</h4></router-link>
-    </div>
-    <div>
-      <router-link :class="{'text-black': $route.path === '/register'}" to="/register"><h4>Регистрация</h4></router-link>
-    </div>
+<template
+  ><div class="col-md-12 header">
+    <router-link :class="{ 'text-black': $route.path !== '/login' }" to="/login"
+      ><h5 class="mb-3">Войти</h5></router-link
+    >
+    <router-link
+      :class="{ 'text-black': $route.path !== '/register' }"
+      to="/register"
+      ><h5 class="mb-3">Регистрация</h5></router-link
+    >
   </div>
 </template>
 <style lang="scss" scoped>
-.login-navbar {
-  margin-bottom: 40px;
+.header {
   display: flex;
-  width: 50%;
-
-  div {
-    padding: 5px;
-    width: 50%;
-    text-align: center;
-
-    &:first-child {
-      border-bottom: 1px solid #9e9e9e;
-    }
-    &:nth-child(2) {
-      border-bottom: 1px solid #9e9e9e;
-      border-left: 1px solid #9e9e9e;
-    }
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  h5 {
+    text-transform: uppercase;
   }
 }
 </style>

@@ -19,14 +19,9 @@ export default {
 };
 </script>
 <style scoped>
-.save-button {
-  position: absolute !important;
-  left: 50% !important;
-  transform: translateX(-50%);
-  font-size: 20px;
-}
 .add-button {
-  font-size: 20px;
+  font-size: 1rem;
   margin: 20px 0;
+  text-align: center;
 }
 </style>

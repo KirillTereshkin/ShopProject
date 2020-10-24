@@ -6,6 +6,13 @@ body {
   font-size: 16px;
 }
 
+.toasted.toasted-primary.success{
+  background: #26a69a !important;
+}
+.toasted.toasted-primary.error{
+  background: #ee6e73 !important;
+}
+
 ::-moz-selection {
   background: #000;
   color: #fff;
@@ -753,9 +760,9 @@ a:hover {
   left: 0;
   text-transform: uppercase;
   z-index: 2;
-  -webkit-transform: rotate(-90deg) translateX(-50%) translateY(-100%);
-  -ms-transform: rotate(-90deg) translateX(-50%) translateY(-100%);
-  transform: rotate(-90deg) translateX(-50%) translateY(-100%);
+  -webkit-transform: rotate(-90deg) translateX(-40%) translateY(-150%);
+  -ms-transform: rotate(-90deg) translateX(-40%) translateY(-150%);
+  transform: rotate(-90deg) translateX(-40%) translateY(-150%);
 }
 .products .item img,
 .product .item img {

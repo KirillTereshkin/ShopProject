@@ -22,7 +22,7 @@ export default {
 
         commit("setProducts", products);
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
 
@@ -35,7 +35,7 @@ export default {
           .remove();
         commit("deleteProductById", productId);
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
     async updateProduct({ commit }, product) {
@@ -47,7 +47,7 @@ export default {
           .update(product.productInfo);
         commit("updateProduct", { ...product.productInfo, id: product.id });
       } catch (e) {
-        console.error("Упс что-то пошло не так", e);
+        throw e;
       }
     },
     async addProduct({ commit }, product) {
@@ -60,7 +60,7 @@ export default {
         ).key;
         commit("pushProduct", { ...product.productInfo, id });
       } catch (e) {
-        console.error("Упс что-то пошло не так", e);
+        throw e;
       }
     },
   },

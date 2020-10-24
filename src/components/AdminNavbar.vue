@@ -5,7 +5,7 @@
       :key="index"
       :class="{ 'text-black': $route.path !== route[0] }"
       :to="route[0]"
-      ><h5>{{ route[1] }}</h5></router-link
+      ><h6>{{ route[1] }}</h6></router-link
     >
   </div>
 </template>
@@ -27,5 +27,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  text-transform: uppercase;
 }
 </style>

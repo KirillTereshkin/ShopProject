@@ -137,6 +137,8 @@
   </div>
 </template>
 <script>
+import getToastMessage from "@/toast/toast-messages";
+
 export default {
   name: "edit-product",
   data: () => ({
@@ -209,17 +211,27 @@ export default {
       }
 
       if (this.id) {
-        await this.$store.dispatch("updateProduct", {
-          id: this.id,
-          productInfo,
-        });
-        this.$router.push("/site-admin");
+        try {
+          await this.$store.dispatch("updateProduct", {
+            id: this.id,
+            productInfo,
+          });
+          this.$toasted.success(getToastMessage("successEdit"));
+          this.$router.push("/site-admin");
+        } catch (e) {
+          this.$toasted.error(getToastMessage(e.code));
+        }
       } else {
-        await this.$store.dispatch("addProduct", {
-          id: this.id,
-          productInfo,
-        });
-        this.$router.push("/site-admin");
+        try {
+          await this.$store.dispatch("addProduct", {
+            id: this.id,
+            productInfo,
+          });
+          this.$toasted.success(getToastMessage("successAdd"));
+          this.$router.push("/site-admin");
+        } catch (e) {
+          this.$toasted.error(getToastMessage(e.code));
+        }
       }
     },
   },

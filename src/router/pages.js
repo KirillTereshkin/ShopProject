@@ -70,7 +70,7 @@ export const pages = {
     path: "/orders",
   },
   login: {
-    name: "Вход в систему",
+    name: "Вход в личный кабинет",
     path: "/login",
   },
   myOrders: {
