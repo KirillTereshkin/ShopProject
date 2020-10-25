@@ -44,7 +44,7 @@
 
           <div class="col-lg-3 order-1 order-lg-2 mb-5 mb-lg-0">
             <CollectionSortByCategory />
-
+            <CollectionSortByProductType />
             <div class="border p-4 mb-4">
               <CollectionSortByPrice :products="products" />
 
@@ -79,6 +79,7 @@ import CollectionSortByPrice from "@/components/CollectionFilters/CollectionSort
 import CollectionSortByColor from "@/components/CollectionFilters/CollectionSortByColor";
 import CollectionSortByCategory from "@/components/CollectionFilters/CollectionSortByCategory";
 import CollectionSortBySize from "@/components/CollectionFilters/CollectionSortBySize";
+import CollectionSortByProductType from "@/components/CollectionFilters/CollectionSortByProductType";
 
 export default {
   name: "collection",
@@ -96,15 +97,18 @@ export default {
         if (query.maxPrice) isValid = isValid && item.price <= query.maxPrice;
         if (query.size && query.size.length)
           isValid =
-            isValid && item.sizes.some((size) => query.size.includes(`${size}`));
+            isValid &&
+            item.sizes.some((size) => query.size.includes(`${size}`));
+        if(query.productType) isValid = isValid && item.productType === query.productType;
         return isValid;
       });
+
 
       return products;
     },
     paginatedProducts() {
       let page = this.$route.query.page ? this.$route.query.page - 1 : 0;
-      
+
       const products = this.filteredProducts.slice(
         page * this.maxItemsOnPage,
         (page + 1) * this.maxItemsOnPage
@@ -122,6 +126,7 @@ export default {
     CollectionSortByPrice,
     CollectionSortBySize,
     CollectionSortByColor,
+    CollectionSortByProductType,
     ProductSlider,
     Pagination,
     Loader,
@@ -137,7 +142,7 @@ export default {
 };
 </script>
 <style lang="scss">
-.products-wrap{
+.products-wrap {
   width: 100%;
 }
 .collection-active-link {

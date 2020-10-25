@@ -16,7 +16,11 @@
             @click="isCollectionOpen = !isCollectionOpen"
           ></span>
           <router-link to="/collection">Коллекция</router-link>
-          <ul class="collapse" :class="{show: isCollectionOpen}" id="collapseItem0">
+          <ul
+            class="collapse"
+            :class="{ show: isCollectionOpen }"
+            id="collapseItem0"
+          >
             <li v-for="ref in pages.collection.subsections" :key="ref.path">
               <router-link
                 :to="{
@@ -40,7 +44,16 @@
             @click="isCabinetOpen = !isCabinetOpen"
           ></span>
           <router-link to="/collection">Личный кабинет</router-link>
-          <ul class="collapse" :class="{show: isCabinetOpen}" id="collapseItem0">
+          <ul
+            class="collapse"
+            :class="{ show: isCabinetOpen }"
+            id="collapseItem0"
+          >
+            <li v-if="!userInfo">
+              <router-link :to="profilePages.register.path">{{
+                profilePages.register.name
+              }}</router-link>
+            </li>
             <li v-if="!userInfo">
               <router-link :to="profilePages.logIn.path">{{
                 profilePages.logIn.name
@@ -65,7 +78,12 @@
         </li>
 
         <li>
-          <router-link :to="pages.cart.path">{{ pages.cart.name }} <span class="cart-items" v-if="cartItems">{{cartItems}}</span></router-link>
+          <router-link :to="pages.cart.path"
+            >{{ pages.cart.name }}
+            <span class="cart-items" v-if="cartItems">{{
+              cartItems
+            }}</span></router-link
+          >
         </li>
       </ul>
     </div>
@@ -73,18 +91,20 @@
 </template>
 <script>
 import { pages } from "@/router/pages";
+import getToastMessage from "@/toast/toast-messages";
 
 export default {
   name: "mobile-header",
   data: () => ({
-      isCollectionOpen: false,
-      isCabinetOpen: false,
+    isCollectionOpen: false,
+    isCabinetOpen: false,
     pages,
     profilePages: {
       admin: { name: "Администрирование", path: "/site-admin" },
       myOrders: { name: "Мои товары", path: "/my-orders" },
       logOut: { name: "Выйти", path: "/logout" },
       logIn: { name: "Войти", path: "/login" },
+      register: { name: "Зарегестрироваться", path: "/register" },
     },
   }),
   methods: {
@@ -93,8 +113,13 @@ export default {
       localStorage[fieldName] = str;
     },
     async logOut() {
-      await this.$store.dispatch("logout");
-      this.$router.push("/").catch((e) => {});
+      try {
+        await this.$store.dispatch("logout");
+        this.$toasted.success(getToastMessage("successLogout"));
+        this.$router.push("/").catch((e) => {});
+      } catch (e) {
+        this.$toasted.error(e.code);
+      }
     },
   },
   computed: {
@@ -112,8 +137,8 @@ export default {
 };
 </script>
 <style scoped>
-.cart-items{
-    color: #207dff;
-    text-decoration: underline;
+.cart-items {
+  color: #207dff;
+  text-decoration: underline;
 }
 </style>

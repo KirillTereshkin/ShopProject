@@ -89,6 +89,7 @@
 </template>
 <script>
 import OrdersTable from "@/components/Orders/OrdersTable";
+import getToastMessage from "@/toast/toast-messages";
 
 export default {
   name: "order-item",
@@ -123,25 +124,31 @@ export default {
   },
   methods: {
     async updateOrderInfo() {
+      if(!confirm("Обновить данные о заказе?")) return;
       try {
         await this.$store.dispatch("updateOrderInfoById", this.id);
+        this.$toasted.success(getToastMessage("successOrderUpdate"));
         this.updateEnable = false;
       } catch (e) {
-        console.error(e);
+        this.$toasted.error(getToastMessage(e.code));
       }
     },
     async deleteOrder() {
+      if(!confirm("Удалить заказ?")) return;
       try {
         await this.$store.dispatch("deleteOrderById", this.id);
+        this.$toasted.success(getToastMessage("successOrderDelete"));
       } catch (e) {
-        console.error(e);
+        this.$toasted.error(getToastMessage(e.code));
       }
     },
     async accomplishOrder() {
+      if(!confirm("Выполнить заказ?")) return;
       try {
         await this.$store.dispatch("accomplishOrderById", this.id);
+        this.$toasted.success(getToastMessage("successOrderAccomplish"));
       } catch (e) {
-        console.error(e);
+        this.$toasted.error(getToastMessage(e.code));
       }
     },
   },

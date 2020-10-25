@@ -34,7 +34,7 @@ export default {
         if (!orders) orders = {};
         commit("setOrders", orders);
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
     async fetchOrdersById({ commit, getters }) {
@@ -52,7 +52,7 @@ export default {
         commit("setOrders", response);
         return response;
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
     async updateOrderInfoById({ state }, id) {
@@ -63,7 +63,7 @@ export default {
           .child(id)
           .update(state.orders[id]);
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
     async accomplishOrderById({ commit, dispatch, state }, id) {
@@ -79,7 +79,7 @@ export default {
           .remove();
         commit("deleteOrderById", id);
       } catch (e) {
-        console.error(e);
+        throw e;
       }
     },
   },

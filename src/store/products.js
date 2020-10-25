@@ -18,7 +18,7 @@ export default {
         products = Object.entries(products).map(([key, value]) => {
           value.id = key;
           return value;
-        });
+        }).reverse();
 
         commit("setProducts", products);
       } catch (e) {
@@ -66,7 +66,7 @@ export default {
   },
   mutations: {
     pushProduct(state, product) {
-      state.products.push(product);
+      state.products.unshift(product);
     },
     updateProduct(state, product) {
       const productIndex = state.products.findIndex(

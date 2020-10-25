@@ -5,7 +5,7 @@
       v-for="(sizeCategory, index) in allSizes"
       :key="index"
       :for="sizeCategory"
-      class="d-flex"
+      class="d-flex align-items-center"
     >
       <input
         type="checkbox"

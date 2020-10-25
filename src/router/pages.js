@@ -20,6 +20,48 @@ export const pages = {
         path: "children",
       },
     ],
+    productType:  [
+        {
+          type: ["women"],
+          name: "Платья",
+          path: "dress",
+        },
+        {
+          type: ["women"],
+          name: "Юбки",
+          path: "skirt",
+        },
+        {
+          type: ["women"],
+          name: "Брюки",
+          path: "pants",
+        },
+        {
+          type: ["women"],
+          name: "Блузы",
+          path: "blouse",
+        },
+        {
+          type: ["women"],
+          name: "Джемпера",
+          path: "cardigan",
+        },
+        {
+          type: ["women"],
+          name: "Футболки",
+          path: "tshirt",
+        },
+        {
+          type: "general",
+          name: "Домашняя одежда",
+          path: "hclothes",
+        },
+        {
+          type: "general",
+          name: "Другое",
+          path: "other",
+        },
+      ],
   },
   product: {
     name: "Товар",

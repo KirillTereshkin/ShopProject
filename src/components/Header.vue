@@ -46,6 +46,7 @@
                   <li
                     v-for="(pathItem, index) in pages.collection.subsections"
                     :key="index"
+                    class="has-children"
                   >
                     <router-link
                       :to="{
@@ -54,6 +55,28 @@
                       }"
                       >{{ pathItem.name }}</router-link
                     >
+                    <ul
+                      v-if="getProductTypeSectionArr(pathItem.path)"
+                      class="dropdown"
+                    >
+                      <li
+                        v-for="productTypeItem in getProductTypeSectionArr(
+                          pathItem.path
+                        )"
+                        :key="productTypeItem.path"
+                      >
+                        <router-link
+                          :to="{
+                            path: 'collection',
+                            query: {
+                              type: pathItem.path,
+                              productType: productTypeItem.path,
+                            },
+                          }"
+                          >{{ productTypeItem.name }}</router-link
+                        >
+                      </li>
+                    </ul>
                   </li>
                 </ul>
               </li>
@@ -140,6 +163,7 @@
 </template>
 <script>
 import { pages } from "@/router/pages";
+import getToastMessage from "@/toast/toast-messages";
 
 export default {
   name: "Header",
@@ -161,13 +185,19 @@ export default {
     async logOut() {
       try {
         await this.$store.dispatch("logout");
+        this.$toasted.success(getToastMessage("successLogout"));
         this.$router.push("/").catch((e) => {});
       } catch (e) {
-        console.error(e);
+        this.$toasted.error(e.code);
       }
     },
     isLinkActive(linkName, activeClass = "active") {
       return linkName === this.$route.path ? activeClass : "";
+    },
+    getProductTypeSectionArr(sectionName) {
+      return this.getProductTypeArr.filter(
+        (item) => item.type === "general" || item.type.includes(sectionName)
+      );
     },
   },
   computed: {
@@ -175,6 +205,9 @@ export default {
       const cartProducts = this.$store.getters.getCartProducts;
       this.saveDataToLocalStorage(cartProducts, "productsCart");
       return cartProducts.length;
+    },
+    getProductTypeArr() {
+      return this.pages.collection.productType;
     },
     userInfo() {
       const userInfo = this.$store.getters.getUserInfo;

@@ -33,7 +33,6 @@
             >
               <span
                 class="d-inline-block mr-2"
-                style="top: -2px; position: relative"
                 ><input
                   type="radio"
                   :id="size"

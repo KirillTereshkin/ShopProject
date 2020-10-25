@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     async deleteProduct(productId) {
+      if(!confirm("Удалить товар?")) return;
       try {
         await this.$store.dispatch("deleteProduct", productId);
         this.$toasted.success(getToastMessage("successDelete"));

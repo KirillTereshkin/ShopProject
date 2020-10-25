@@ -124,6 +124,23 @@
             </div>
           </div>
 
+          <div class="form-container">
+            <div class="collection-input">
+              <h6 class="text-black">
+                Выберите тип товара:<span class="text-danger">*</span>
+              </h6>
+              <select v-model="productType" class="form-control">
+                <option
+                  v-for="(type, index) in productTypes"
+                  :key="index"
+                  :value="type.path"
+                >
+                  {{ type.name }}
+                </option>
+              </select>
+            </div>
+          </div>
+
           <button
             class="save-button buy-now btn btn-sm height-auto px-4 py-3 btn-primary"
             :disabled="isSaveButtonEnabled"
@@ -138,6 +155,7 @@
 </template>
 <script>
 import getToastMessage from "@/toast/toast-messages";
+import { pages } from "@/router/pages";
 
 export default {
   name: "edit-product",
@@ -174,6 +192,8 @@ export default {
       "Осенняя коллекция",
       "Всесезон",
     ],
+    productTypes: pages.collection.productType,
+    productType: "",
   }),
   computed: {
     chosenSizes() {
@@ -189,6 +209,7 @@ export default {
         this.price &&
         this.type &&
         this.collection &&
+        this.productType &&
         !!this.sizes.length
       );
     },
@@ -203,6 +224,7 @@ export default {
         sizes: this.sizes,
         title: this.title,
         type: this.type,
+        productType: this.productType,
       };
 
       if (this.isSale) {
@@ -248,6 +270,7 @@ export default {
       this.sizes = product.sizes;
       this.title = product.title;
       this.type = product.type;
+      this.productType = product.productType;
     }
   },
 };

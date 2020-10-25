@@ -39,7 +39,7 @@
                     class="btn btn-primary btn-lg btn-block"
                     :disabled="!isFormValid"
                   >
-                    Войти
+                    Оследить заказ
                   </button>
                 </div>
               </div>

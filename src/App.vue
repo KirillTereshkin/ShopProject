@@ -14,6 +14,7 @@ import ShopHeader from "@/components/Header";
 import ShopFooter from "@/components/Footer";
 import SectionPath from "@/components/Path";
 import Loader from "@/components/Loader";
+
 export default {
   name: "App",
   components: {

@@ -21,7 +21,7 @@
         >
           <span>{{ collectionType.name }} одежда</span>
           <span class="text-black ml-auto"
-            >({{ collectionSubsectionNumber[collectionType.path] }})</span
+            >({{ collectionSubsectionNumber[collectionType.path] || 0 }})</span
           >
         </a>
       </li>
@@ -59,7 +59,6 @@ export default {
           collectionSubsectionNumber[type] += 1;
         else collectionSubsectionNumber[type] = 1;
       });
-
       this.collectionSubsectionNumber = { ...collectionSubsectionNumber };
     },
   },
